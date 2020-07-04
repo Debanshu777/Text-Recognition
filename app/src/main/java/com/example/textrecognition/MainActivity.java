@@ -202,51 +202,49 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode==RESULT_OK){
-            if(requestCode==IMAGE_PICK_GALLERY_CODE){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 //got image from gallery now crop it
                 CropImage.activity(data.getData()).setGuidelines(CropImageView.Guidelines.ON)//enable image guide line
-                .start(this);
+                        .start(this);
             }
-            if(requestCode==IMAGE_PICK_CAMERA_CODE){
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 //got image from camera now crop it
                 CropImage.activity(image_uri).setGuidelines(CropImageView.Guidelines.ON)//enable image guide line
                         .start(this);
             }
         }
         //get cropped images
-        if(requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
-            CropImage.ActivityResult result=CropImage.getActivityResult(data);
-            if(resultCode== RESULT_OK){
-                Uri resultUri=result.getUri();//gete image uri
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();//gete image uri
                 //set image to image view
                 mPreviewIv.setImageURI(resultUri);
                 //get drawble bitmap for text recognition
-                BitmapDrawable bitmapDrawable=(BitmapDrawable)mPreviewIv.getDrawable();
-                Bitmap bitmap=bitmapDrawable.getBitmap();
-                TextRecognizer recognizer= new TextRecognizer.Builder(getApplicationContext()).build();
-                if(!recognizer.isOperational()){
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+                if (!recognizer.isOperational()) {
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Frame frame=new Frame.Builder().setBitmap(bitmap).build();
-                    SparseArray<TextBlock>items= recognizer.detect(frame);
-                    StringBuilder sb=new StringBuilder();
+                } else {
+                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                    SparseArray<TextBlock> items = recognizer.detect(frame);
+                    StringBuilder sb = new StringBuilder();
                     //get text from sb until there is no text
-                    for(int i=0;i<items.size();i++)
-                    {
-                        TextBlock myItem=items.valueAt(i);
+                    for (int i = 0; i < items.size(); i++) {
+                        TextBlock myItem = items.valueAt(i);
                         sb.append(myItem.getValue());
                         sb.append("\n");
                     }
                     //set text to edit text
                     mResultEt.setText(sb.toString());
                 }
-            }
-            else if(resultCode ==CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 //if there is any error show it
-                Exception error=result.getError();
-                Toast.makeText(this, ""+error, Toast.LENGTH_SHORT).show();
+                Exception error = result.getError();
+                Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
 
             }
         }
