@@ -1,4 +1,4 @@
-# Text-Recognition
+# Text-Recognition 📷
 Text recognition is the process of detecting text in images and video streams and recognizing the text contained therein. Once detected, the recognizer then determines the actual text in each block and segments it into lines and words. The Text API detects text in Latin based languages (French, German, English, etc.), in real-time, on device.
 
 ## Dependencies
@@ -20,10 +20,10 @@ Text recognition is the process of detecting text in images and video streams an
      <td>Output</td>
   </tr>
   <tr>
-    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/Screenshot_1593878899.png" width=240 height=470/></td>
-    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/Screenshot_1593878912.png" width=240 height=470/></td>
-    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/WhatsApp%20Image%202020-07-04%20at%2010.48.57%20PM.jpeg" width=240 height=470/></td>
-    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/WhatsApp%20Image%202020-07-04%20at%2010.48.57%20PM%20(1).jpeg" width=240 height=470/></td>
+    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/Screenshot_1593878899.png" width=240 height=420/></td>
+    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/Screenshot_1593878912.png" width=240 height=420/></td>
+    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/WhatsApp%20Image%202020-07-04%20at%2010.48.57%20PM.jpeg" width=240 height=420/></td>
+    <td><img src="https://github.com/Debanshu777/Text-Recognition/blob/master/app/Screenshots/WhatsApp%20Image%202020-07-04%20at%2010.48.57%20PM%20(1).jpeg" width=240 height=420/></td>
   </tr>
 </table>
   
