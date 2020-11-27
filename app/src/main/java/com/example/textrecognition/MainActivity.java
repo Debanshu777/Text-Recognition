@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int IMAGE_PICK_GALLERY_CODE=1000;
     private static final int IMAGE_PICK_CAMERA_CODE=1001;
 
-    String camerPermission[];
-    String storagePermission[];
+    String[] cameraPermission;
+    String[] storagePermission;
 
     Uri image_uri;
 
@@ -52,12 +52,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar=getSupportActionBar();
+        assert actionBar != null;
         actionBar.setSubtitle("Click + Button To Insert Images");
         mResultEt=findViewById(R.id.resultEt);
         mPreviewIv=findViewById(R.id.imageIv);
 
         //camera permission
-        camerPermission=new String[]{Manifest.permission.CAMERA ,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermission=new String[]{Manifest.permission.CAMERA ,Manifest.permission.WRITE_EXTERNAL_STORAGE};
         //storage permission
         storagePermission=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
     }
@@ -149,13 +150,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkStoragePermission() {
-        boolean result= ContextCompat.checkSelfPermission(this,
+        return ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-        return result;
     }
 
     private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(this,camerPermission,CAMERA_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this,cameraPermission,CAMERA_REQUEST_CODE);
     }
 
     private boolean checkCameraPermission() {
@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 //got image from gallery now crop it
+                assert data != null;
                 CropImage.activity(data.getData()).setGuidelines(CropImageView.Guidelines.ON)//enable image guide line
                         .start(this);
             }
@@ -219,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
+                assert result != null;
                 Uri resultUri = result.getUri();//gete image uri
                 //set image to image view
                 mPreviewIv.setImageURI(resultUri);
@@ -243,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 //if there is any error show it
+                assert result != null;
                 Exception error = result.getError();
                 Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
 
